@@ -2,8 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { fetchArticles } from './scraper';
-import { startParsingOlx, startParsingOlx1 } from './cronjobs';
+import { startParsingOlx} from './cronjobs';
 import axios from 'axios'
 import cheerio from 'cheerio'
 import connectDB from './db';
@@ -19,12 +18,6 @@ app.use(helmet()); // Enable Helmet
 app.use(morgan('dev')); 
 // Enable Morgan
 startParsingOlx();
-startParsingOlx1();
-
-app.get('/', (req, res) => {
-    const articles = fetchArticles();
-    res.send(articles);
-  });
 
   app.get('/parse-categories', async (req, res) => {
     try {
